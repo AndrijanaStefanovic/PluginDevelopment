@@ -11,20 +11,99 @@ public class FMProperty extends FMElement  {
 	//Multiplicity (upper value) 
 	private Integer upper;
 	
+	private boolean uiProperty;
+	
+	private boolean readonly;
+	
+	private Integer length;
+	
+	private Integer precision;
+	
+	private String componentKind;
+	
+	private String label;
+	
+	private boolean zoom;
+	
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
 	 * Also, provide these meta-attributes or tags in the modeling languange metaclass or 
 	 * stereotype */
 
 	
-	public FMProperty(String name, String type, String visibility, int lower, int upper) {
+	public FMProperty(String name, String type, String visibility, int lower, int upper, boolean readonly,
+			int length, int precision, String componentKind, boolean uiProperty, String label, boolean zoom) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
 		
 		this.lower = lower;
 		this.upper = upper;		
+		
+		this.readonly = readonly;
+		this.length = length;
+		this.precision = precision;
+		this.componentKind = componentKind;
+		this.uiProperty = uiProperty;
+		this.label = label;
+		this.zoom = zoom; 
 	}
 	
+	public boolean isZoom() {
+		return zoom;
+	}
+
+	public void setZoom(boolean zoom) {
+		this.zoom = zoom;
+	}
+
+	public boolean isUiProperty() {
+		return uiProperty;
+	}
+
+	public void setUiProperty(boolean uiProperty) {
+		this.uiProperty = uiProperty;
+	}
+
+	public boolean isReadonly() {
+		return readonly;
+	}
+
+	public void setReadonly(boolean readonly) {
+		this.readonly = readonly;
+	}
+
+	public Integer getLength() {
+		return length;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public void setLength(Integer length) {
+		this.length = length;
+	}
+
+	public Integer getPrecision() {
+		return precision;
+	}
+
+	public void setPrecision(Integer precision) {
+		this.precision = precision;
+	}
+
+	public String getComponentKind() {
+		return componentKind;
+	}
+
+	public void setComponentKind(String componentKind) {
+		this.componentKind = componentKind;
+	}
+
 	public String getType() {
 		return type;
 	}

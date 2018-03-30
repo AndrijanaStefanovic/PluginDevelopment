@@ -40,7 +40,4 @@ public class FMModel {
 	public void setEnumerations(List<FMEnumeration> enumerations) {
 		this.enumerations = enumerations;
 	}
-
-
-
 }

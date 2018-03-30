@@ -1,22 +1,27 @@
 package myplugin.analyzer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
+import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Association;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.EnumerationLiteral;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
+import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
-
-import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
-import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.EnumerationLiteral;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
-import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
 
 
 /** Model Analyzer takes necessary metadata from the MagicDraw model and puts it in 
@@ -77,7 +82,7 @@ public class ModelAnalyzer {
 					Enumeration en = (Enumeration)ownedElement;
 					FMEnumeration fmEnumeration = getEnumerationData(en, packageName);
 					FMModel.getInstance().getEnumerations().add(fmEnumeration);
-				}								
+				}
 			}
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
@@ -96,6 +101,7 @@ public class ModelAnalyzer {
 	}
 	
 	private FMClass getClassData(Class cl, String packageName) throws AnalyzeException {
+		
 		if (cl.getName() == null) 
 			throw new AnalyzeException("Classes must have names!");
 		
@@ -105,7 +111,16 @@ public class ModelAnalyzer {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);	
+			if(prop.isUiProperty()){
+				fmClass.addUIProperty(prop);
+			}
 		}	
+		
+		//Za asocijacije
+		Iterator<Association> itAs = ModelHelper.associations(cl);
+		while (itAs.hasNext()) {
+			Association a = itAs.next();
+		}
 		
 		/** @ToDo:
 		 * Add import declarations etc. */		
@@ -130,8 +145,47 @@ public class ModelAnalyzer {
 		int lower = p.getLower();
 		int upper = p.getUpper();
 		
+		//Podrazumevane vrednosti
+		boolean readonly = false;
+		int length = 0;
+		String componentKind = "";
+		int precision = 0;
+		boolean uiProperty = false;
+		String label = p.getName();
+		Stereotype propertyStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Editable");
+		
+		if (propertyStereotype == null) {
+			propertyStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Readonly");
+			readonly = true;
+		} 
+		
+		if (propertyStereotype != null) { //has Readonly or Editable
+			uiProperty = true;
+			List lengthList = StereotypesHelper.getStereotypePropertyValue(p, propertyStereotype, "length");
+			if(!lengthList.isEmpty()) {
+				length = (Integer)lengthList.get(0);
+			}
+			List componentList = StereotypesHelper.getStereotypePropertyValue(p, propertyStereotype, "component");
+			if(!componentList.isEmpty()) {
+				componentKind = ((EnumerationLiteral)componentList.get(0)).getName();
+			}
+			List precisionList = StereotypesHelper.getStereotypePropertyValue(p, propertyStereotype, "precision");
+			if(!precisionList.isEmpty()) {
+				precision = (Integer)precisionList.get(0);
+			}
+			List labelList = StereotypesHelper.getStereotypePropertyValue(p, propertyStereotype, "label");
+			if(!labelList.isEmpty()) {
+				label = labelList.get(0).toString();
+			}
+		}
+		
+		boolean zoom = false;
+		if(StereotypesHelper.getAppliedStereotypeByString(p, "Zoom") != null){
+			zoom = true;
+		} 
+		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
-				lower, upper);
+				lower, upper, readonly, length, precision, componentKind, uiProperty, label, zoom);
 		return prop;		
 	}	
 	
@@ -147,6 +201,6 @@ public class ModelAnalyzer {
 		}
 		return fmEnum;
 	}	
-	
+		
 	
 }

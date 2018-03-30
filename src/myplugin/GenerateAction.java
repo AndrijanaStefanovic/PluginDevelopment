@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.EJBGenerator;
+import myplugin.generator.HTMLGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -44,6 +45,11 @@ class GenerateAction extends MDAction{
 			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 			EJBGenerator generator = new EJBGenerator(go);
 			generator.generate();
+			
+			GeneratorOptions htmlGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("HTMLGenerator");			
+			HTMLGenerator htmlGenerator = new HTMLGenerator(htmlGo);
+			htmlGenerator.generate();
+			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
 					                         " package: " + go.getFilePackage());
