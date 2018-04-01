@@ -31,11 +31,14 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		//for test purpose only:
 		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "ejbclass", "templates", "{0}.java", true, "ejb"); 
 		GeneratorOptions htmlOptions = new GeneratorOptions("c:/temp", "htmlpage", "templates", "{0}.html", true, "ejb");
+		GeneratorOptions jsControllerOptions = new GeneratorOptions("c:/temp", "jscontroller", "templates", "{0}.js", true, "ejb");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", ejbOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("HTMLGenerator", htmlOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSControllerGenerator", jsControllerOptions);
 				
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 		htmlOptions.setTemplateDir(pluginDir + File.separator + htmlOptions.getTemplateDir());
+		jsControllerOptions.setTemplateDir(pluginDir + File.separator + jsControllerOptions.getTemplateDir());
 	}
 
 	private NMAction[] getSubmenuActions()

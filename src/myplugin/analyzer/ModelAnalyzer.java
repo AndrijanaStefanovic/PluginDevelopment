@@ -114,14 +114,11 @@ public class ModelAnalyzer {
 			if(prop.isUiProperty()){
 				fmClass.addUIProperty(prop);
 			}
+			if(prop.isZoom()){
+				fmClass.addZoomProperty(prop);
+			}
 		}	
-		
-		//Za asocijacije
-		Iterator<Association> itAs = ModelHelper.associations(cl);
-		while (itAs.hasNext()) {
-			Association a = itAs.next();
-		}
-		
+				
 		/** @ToDo:
 		 * Add import declarations etc. */		
 		return fmClass;

@@ -16,7 +16,7 @@
 
 	<tbody>
 
-		<tr data-ng-repeat="x in ${class.name}List | orderBy:sortType:sortReverse">
+		<tr data-ng-repeat="x in ${class.name?uncap_first}List | orderBy:sortType:sortReverse">
 			<#list properties as property>
 				<#if property.uiProperty>
 					<td>{{x.${property.name}}}</td>
@@ -46,17 +46,17 @@
 			</div>
 			<div class="modal-body">
 				<#list properties as property>
-					<#if property.uiProperty>
-						<#if property.componentKind == "textField">
-							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?lower_case}.${property.name}"><br>
-						</#if>	
-					</#if>
 					<#if property.zoom>
-						<select name="select${property.name?capitalize}" id="select${property.name?capitalize}" ng-model="${class.name?lower_case}.${property.name}.id">
+						<select name="select${property.name?capitalize}" id="select${property.name?capitalize}" ng-model="${class.name?uncap_first}.${property.name}.id">
 							<option ng-repeat="x in ${property.name}List" value="{{x.id}}">
 								{{x.id}}
 							</option>
 						</select>
+					</#if>
+					<#if property.uiProperty>
+						<#if property.componentKind == "textField">
+							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if>><br>
+						</#if>	
 					</#if>
 				</#list>
 				<br>
@@ -78,9 +78,16 @@
 			</div>
 			<div class="modal-body">
 				<#list properties as property>
+					<#if property.zoom>
+						<select id="updateSelect${property.name?capitalize}">
+							<option data-ng-repeat="x in ${property.name}List" value="{{x.id}}">
+								{{x.id}}
+							</option>
+						</select>
+					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?lower_case}.${property.name}"><br>
+							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}"><br>
 						</#if>	
 					</#if>
 				</#list>

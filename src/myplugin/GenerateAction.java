@@ -10,19 +10,20 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import myplugin.analyzer.AnalyzeException;
-import myplugin.analyzer.ModelAnalyzer;
-import myplugin.generator.EJBGenerator;
-import myplugin.generator.HTMLGenerator;
-import myplugin.generator.fmmodel.FMModel;
-import myplugin.generator.options.GeneratorOptions;
-import myplugin.generator.options.ProjectOptions;
-
 import com.nomagic.magicdraw.actions.MDAction;
 import com.nomagic.magicdraw.core.Application;
 import com.nomagic.uml2.ext.magicdraw.auxiliaryconstructs.mdmodels.Model;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import myplugin.analyzer.AnalyzeException;
+import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.EJBGenerator;
+import myplugin.generator.HTMLGenerator;
+import myplugin.generator.JSControllerGenerator;
+import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.options.GeneratorOptions;
+import myplugin.generator.options.ProjectOptions;
 
 /** Action that activate code generation */
 class GenerateAction extends MDAction{
@@ -49,6 +50,10 @@ class GenerateAction extends MDAction{
 			GeneratorOptions htmlGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("HTMLGenerator");			
 			HTMLGenerator htmlGenerator = new HTMLGenerator(htmlGo);
 			htmlGenerator.generate();
+			
+			GeneratorOptions jsControllerGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSControllerGenerator");			
+			JSControllerGenerator jsControllerGenerator = new JSControllerGenerator(jsControllerGo);
+			jsControllerGenerator.generate();
 			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
