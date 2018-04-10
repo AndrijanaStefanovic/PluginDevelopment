@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import myplugin.generator.options.GeneratorOptions;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
+import myplugin.generator.options.GeneratorOptions;
 
 /**
  * Abstract generator that creates necessary environment for code generation 

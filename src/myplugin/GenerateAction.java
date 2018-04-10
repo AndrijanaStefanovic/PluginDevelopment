@@ -20,7 +20,9 @@ import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.HTMLGenerator;
+import myplugin.generator.JSAppGenerator;
 import myplugin.generator.JSControllerGenerator;
+import myplugin.generator.JSServiceGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -54,6 +56,30 @@ class GenerateAction extends MDAction{
 			GeneratorOptions jsControllerGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSControllerGenerator");			
 			JSControllerGenerator jsControllerGenerator = new JSControllerGenerator(jsControllerGo);
 			jsControllerGenerator.generate();
+			
+			GeneratorOptions jsServiceGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSServiceGenerator");			
+			JSServiceGenerator jsServiceGenerator = new JSServiceGenerator(jsServiceGo);
+			jsServiceGenerator.generate();
+			
+			GeneratorOptions jsAppGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSAppGenerator");			
+			JSAppGenerator jsAppGenerator = new JSAppGenerator(jsAppGo);
+			jsAppGenerator.generate();
+			
+			GeneratorOptions jsDirectivesGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSDirectivesGenerator");			
+			JSAppGenerator jsDirectivesGenerator = new JSAppGenerator(jsDirectivesGo);
+			jsDirectivesGenerator.generate();
+			
+			GeneratorOptions jsControllersGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSControllersGenerator");			
+			JSAppGenerator jsControllersGenerator = new JSAppGenerator(jsControllersGo);
+			jsControllersGenerator.generate();
+			
+			GeneratorOptions jsServicesGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSServicesGenerator");			
+			JSAppGenerator jsServicesGenerator = new JSAppGenerator(jsServicesGo);
+			jsServicesGenerator.generate();
+			
+			GeneratorOptions jsRoutesGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSRoutesGenerator");			
+			JSAppGenerator jsRoutesGenerator = new JSAppGenerator(jsRoutesGo);
+			jsRoutesGenerator.generate();
 			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +

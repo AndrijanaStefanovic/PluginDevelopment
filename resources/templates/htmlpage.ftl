@@ -19,7 +19,7 @@
 		<tr data-ng-repeat="x in ${class.name?uncap_first}List | orderBy:sortType:sortReverse">
 			<#list properties as property>
 				<#if property.uiProperty>
-					<td>{{x.${property.name}}}</td>
+					<td>{{x.${property.name} <#if property.componentKind == "dateChooser">| date : "dd-MM-yyyy HH:mm" </#if>}}</td>
 				</#if>
 			</#list>
 			
@@ -47,7 +47,7 @@
 			<div class="modal-body">
 				<#list properties as property>
 					<#if property.zoom>
-						<select name="select${property.name?capitalize}" id="select${property.name?capitalize}" ng-model="${class.name?uncap_first}.${property.name}.id">
+						<select name="select${property.name?cap_first}" id="select${property.name?cap_first}" ng-model="${class.name?uncap_first}.${property.name}.id">
 							<option ng-repeat="x in ${property.name}List" value="{{x.id}}">
 								{{x.id}}
 							</option>
@@ -55,7 +55,13 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if>><br>
+							<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" ><br>
+						</#if>
+						<#if property.componentKind == "dateChooser">
+							<div class="input-group date" id="dateTime${property.name?cap_first}" data-ng-init="initDateTimePicker${property.name?cap_first}()">
+				 				<input type="text" class="form-control" id="dateTextField${property.name?cap_first}"/> 
+				 				<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span> 
+							</div> 
 						</#if>	
 					</#if>
 				</#list>
@@ -79,7 +85,7 @@
 			<div class="modal-body">
 				<#list properties as property>
 					<#if property.zoom>
-						<select id="updateSelect${property.name?capitalize}">
+						<select id="updateSelect${property.name?cap_first}">
 							<option data-ng-repeat="x in ${property.name}List" value="{{x.id}}">
 								{{x.id}}
 							</option>
@@ -87,7 +93,13 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}"><br>
+							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if>><br>
+						</#if>
+						<#if property.componentKind == "dateChooser">
+							<div class="input-group date" id="updateDateTime${property.name?cap_first}" data-ng-init="initDateTimePicker${property.name?cap_first}()">
+				 				<input type="text" class="form-control" id="updateDateTextField${property.name?cap_first}"/> 
+				 				<span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span></span> 
+							</div> 
 						</#if>	
 					</#if>
 				</#list>

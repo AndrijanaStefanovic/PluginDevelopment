@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
-
 import freemarker.template.TemplateException;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMModel;

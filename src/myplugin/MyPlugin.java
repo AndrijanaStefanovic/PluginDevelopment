@@ -30,15 +30,39 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 		//for test purpose only:
 		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "ejbclass", "templates", "{0}.java", true, "ejb"); 
+		
 		GeneratorOptions htmlOptions = new GeneratorOptions("c:/temp", "htmlpage", "templates", "{0}.html", true, "ejb");
-		GeneratorOptions jsControllerOptions = new GeneratorOptions("c:/temp", "jscontroller", "templates", "{0}.js", true, "ejb");
+		
+		GeneratorOptions jsControllerOptions = new GeneratorOptions("c:/temp", "jscontroller", "templates", "{0}Controller.js", true, "ejb");
+		GeneratorOptions jsServiceOptions = new GeneratorOptions("c:/temp", "jsservice", "templates", "{0}Service.js", true, "ejb");
+		
+		GeneratorOptions jsAppOptions = new GeneratorOptions("c:/temp", "jsapp", "templates", "app.js", true, "ejb");
+		GeneratorOptions jsDirectivesOptions = new GeneratorOptions("c:/temp", "jsdirectives", "templates", "directives.js", true, "ejb");
+		GeneratorOptions jsControllersOptions = new GeneratorOptions("c:/temp", "jscontrollers", "templates", "controllers.js", true, "ejb");
+		GeneratorOptions jsServicesOptions = new GeneratorOptions("c:/temp", "jsservices", "templates", "services.js", true, "ejb");
+		GeneratorOptions jsRoutesOptions = new GeneratorOptions("c:/temp", "jsroutes", "templates", "routes.js", true, "ejb");
+		
+		
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", ejbOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("HTMLGenerator", htmlOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSControllerGenerator", jsControllerOptions);
-				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSServiceGenerator", jsServiceOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSAppGenerator", jsAppOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSDirectivesGenerator", jsDirectivesOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSControllersGenerator", jsControllersOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSServicesGenerator", jsServicesOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSRoutesGenerator", jsRoutesOptions);
+		
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 		htmlOptions.setTemplateDir(pluginDir + File.separator + htmlOptions.getTemplateDir());
 		jsControllerOptions.setTemplateDir(pluginDir + File.separator + jsControllerOptions.getTemplateDir());
+		jsServiceOptions.setTemplateDir(pluginDir + File.separator + jsServiceOptions.getTemplateDir());
+		jsAppOptions.setTemplateDir(pluginDir + File.separator + jsAppOptions.getTemplateDir());
+		jsDirectivesOptions.setTemplateDir(pluginDir + File.separator + jsDirectivesOptions.getTemplateDir());
+		jsControllersOptions.setTemplateDir(pluginDir + File.separator + jsControllersOptions.getTemplateDir());
+		jsServicesOptions.setTemplateDir(pluginDir + File.separator + jsServicesOptions.getTemplateDir());
+		jsRoutesOptions.setTemplateDir(pluginDir + File.separator + jsRoutesOptions.getTemplateDir());
+		
 	}
 
 	private NMAction[] getSubmenuActions()

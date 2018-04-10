@@ -8,21 +8,17 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import com.nomagic.magicdraw.core.Application;
+
 import freemarker.template.TemplateException;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 
-/** EJB generator that now generates incomplete ejb classes based on MagicDraw 
- * class model 
- * @ToDo: enhance resources/templates/ejbclass.ftl template and intermediate data structure
- *  (@see myplugin.generator.fmmodel) in order to generate complete ejb classes 
- */
+public class JSServiceGenerator extends BasicGenerator {
 
-public class EJBGenerator extends BasicGenerator {	
-	
-	public EJBGenerator(GeneratorOptions generatorOptions) {			
-		super(generatorOptions);			
+	public JSServiceGenerator(GeneratorOptions generatorOptions) {
+		super(generatorOptions);
 	}
 
 	public void generate() {
@@ -32,19 +28,22 @@ public class EJBGenerator extends BasicGenerator {
 		} catch (IOException e) {		
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-
+		
 		List<FMClass> classes = FMModel.getInstance().getClasses();
+		String name = Application.getInstance().getProject().getName();
 		for (int i = 0; i < classes.size(); i++) {
-			FMClass cl = classes.get(i);			
+				FMClass cl = classes.get(i);	
 				Writer out;
 				Map<String, Object> context = new HashMap<String, Object>();
+				
 				try {
 					out = getWriter(cl.getName(), cl.getTypePackage());
 					if (out != null) {
 						context.clear();
+						context.put("appName", name);
 						context.put("class", cl);
-						context.put("properties", cl.getProperties());					
-						context.put("importedPackages", cl.getImportedPackages());					
+						context.put("properties", cl.getProperties());	
+						context.put("zoomProperties", cl.getZoomProperties());
 						getTemplate().process(context, out);
 						out.flush();
 					}
@@ -54,8 +53,7 @@ public class EJBGenerator extends BasicGenerator {
 				catch (IOException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}	
-			}			
+			}
 		}
-	}
 
-
+}

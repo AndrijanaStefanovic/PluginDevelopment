@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import com.nomagic.magicdraw.core.Application;
+
 import freemarker.template.TemplateException;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMModel;
@@ -19,7 +21,7 @@ public class JSControllerGenerator extends BasicGenerator{
 		super(generatorOptions);
 	}
 	
-public void generate() {
+	public void generate() {
 		
 		try {
 			super.generate();
@@ -28,6 +30,7 @@ public void generate() {
 		}
 		
 		List<FMClass> classes = FMModel.getInstance().getClasses();
+		String name = Application.getInstance().getProject().getName();
 		for (int i = 0; i < classes.size(); i++) {
 				FMClass cl = classes.get(i);	
 				Writer out;
@@ -38,6 +41,7 @@ public void generate() {
 					out = getWriter(cl.getName(), cl.getTypePackage());
 					if (out != null) {
 						context.clear();
+						context.put("appName", name);
 						context.put("class", cl);
 						context.put("properties", cl.getProperties());	
 						context.put("zoomProperties", cl.getZoomProperties());

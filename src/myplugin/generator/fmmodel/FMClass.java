@@ -9,7 +9,6 @@ public class FMClass extends FMType {
 	
 	private String visibility;
 	
-
 	//Class properties
 	private List<FMProperty> FMProperties = new ArrayList<FMProperty>();
 	
@@ -102,6 +101,4 @@ public class FMClass extends FMType {
 		this.visibility = visibility;
 	}	
 
-	
-	
 }

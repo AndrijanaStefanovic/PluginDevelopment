@@ -1,4 +1,4 @@
-angular.module('mbrsApp.${class.name}Controller',[])
+angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     .controller('${class.name}Controller', function ($scope, ${class.name}Service <#list zoomProperties as zoomProperty>, ${zoomProperty.name?cap_first}Service </#list>) {
     
     	$scope.${class.name?uncap_first}List = [];
@@ -7,7 +7,20 @@ angular.module('mbrsApp.${class.name}Controller',[])
     </#list>
     	$scope.sortType     = '${properties[0].name}';
     	$scope.sortReverse  = false;  
-    	
+    
+    <#list properties as property>
+    	<#if property.componentKind == "dateChooser">
+    	$scope.initDateTimePicker${property.name?cap_first} = function() {
+			$('#dateTime${property.name?cap_first}').datetimepicker({
+				format: 'DD-MM-YYYY HH:mm'
+			});
+			$('#updateDateTime${property.name?cap_first}').datetimepicker({
+				format: 'DD-MM-YYYY HH:mm'
+			});
+		}
+		
+		</#if>
+    </#list>
     	${class.name}Service.findAll()
     		.then(function successCallback(response) {
     			$scope.${class.name?uncap_first}List = response.data;
@@ -22,6 +35,7 @@ angular.module('mbrsApp.${class.name}Controller',[])
     		}, function errorCallback(response){
     			toastr.error("Greska");
     		})
+    		
 	</#list>
 
     	$scope.openCreateModal = function() {
@@ -33,7 +47,14 @@ angular.module('mbrsApp.${class.name}Controller',[])
     	}
     		
     	$scope.create${class.name} = function() {
-    		${class.name}Service.create${class.name}($scope.${class.name?uncap_first} <#list zoomProperties as zoomProperty>, $scope.${class.name?uncap_first}.${zoomProperty.name}.id </#list>)
+    <#list properties as property>	
+    	<#if property.componentKind == "dateChooser">
+    		var ${property.name} = $('#dateTextField${property.name?cap_first}').val();
+    		$scope.${class.name?uncap_first}.${property.name} = moment(${property.name}, 'DD-MM-YYYY HH:mm');
+    	</#if>
+    </#list>	
+
+    	${class.name}Service.create${class.name}($scope.${class.name?uncap_first} <#list zoomProperties as zoomProperty>, $scope.${class.name?uncap_first}.${zoomProperty.name}.id </#list>)
     			.then(function successCallback(response) {
     				$scope.${class.name?uncap_first}List.push(response.data);
     				 $('#create${class.name}Modal').modal('toggle');
@@ -50,7 +71,12 @@ angular.module('mbrsApp.${class.name}Controller',[])
     	
     	$scope.openUpdateModal = function(${class.name?uncap_first}) {
     	<#list zoomProperties as zoomProperty>
-    		document.getElementById("updateSelect${zoomProperty.name?capitalize}").value = ${class.name?uncap_first}.${zoomProperty.name}.id;
+    		document.getElementById("updateSelect${zoomProperty.name?cap_first}").value = ${class.name?uncap_first}.${zoomProperty.name}.id;
+		</#list>
+		<#list properties as property>
+			<#if property.componentKind == "dateChooser">
+			$("#updateDateTextField${property.name?cap_first}").val(moment(${class.name?uncap_first}.${property.name}).format('DD-MM-YYYY HH:mm'));
+			</#if>
 		</#list>
     		$scope.${class.name?uncap_first} = angular.copy(${class.name?uncap_first});
     		$('#update${class.name}Modal').modal('toggle');
@@ -58,7 +84,13 @@ angular.module('mbrsApp.${class.name}Controller',[])
     	
     	$scope.update${class.name} = function() {
     	<#list zoomProperties as zoomProperty>
-    		$scope.${class.name?uncap_first}.${zoomProperty.name}.id = document.getElementById("updateSelect${zoomProperty.name?capitalize}").value;
+    		$scope.${class.name?uncap_first}.${zoomProperty.name}.id = document.getElementById("updateSelect${zoomProperty.name?cap_first}").value;
+    	</#list>
+    	<#list properties as property>
+    		<#if property.componentKind == "dateChooser">
+    		var ${property.name} = $('#updateDateTextField${property.name?cap_first}').val();
+    		$scope.${class.name?uncap_first}.${property.name} = moment(${property.name}, 'DD-MM-YYYY HH:mm');
+    		</#if>
     	</#list>
     		${class.name}Service.update${class.name}($scope.${class.name?uncap_first})
     			.then(function successCallback(response) {
