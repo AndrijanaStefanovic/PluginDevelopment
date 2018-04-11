@@ -1,6 +1,10 @@
 <div ng-controller='${class.name}Controller'>
 <h1>${class.name}</h1>
 
+<#if class.zoomProperties?size != 0>
+<input type="text" class="form-control ng-valid ng-dirty" placeholder="Pretraga" data-ng-model="searchKeyword">
+</#if>
+
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -23,7 +27,7 @@
 
 	<tbody>
 
-		<tr data-ng-repeat="x in ${class.name?uncap_first}List | orderBy:sortType:sortReverse">
+		<tr data-ng-repeat="x in ${class.name?uncap_first}List | orderBy:sortType:sortReverse<#if class.zoomProperties?size != 0> | filter:filterFunction </#if>">
 			<#list properties as property>
 				<#if property.uiProperty>
 					<td>{{x.${property.name} <#if property.componentKind == "dateChooser">| date : "dd-MM-yyyy HH:mm" </#if>}}</td>

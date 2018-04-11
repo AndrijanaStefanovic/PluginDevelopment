@@ -7,6 +7,9 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     </#list>
     	$scope.sortType     = '${properties[0].name}';
     	$scope.sortReverse  = false;  
+    <#if class.zoomProperties?size != 0>
+    	$scope.searchKeyword = "";
+    </#if>
     
     <#list properties as property>
     	<#if property.componentKind == "dateChooser">
@@ -41,7 +44,7 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     	$scope.openCreateModal = function() {
     		$scope.${class.name?uncap_first} = {};
     	<#list zoomProperties as zoomProperty>
-    		$scope.${class.name?uncap_first}.${zoomProperty.name} = {}
+    		$scope.${class.name?uncap_first}.${zoomProperty.name} = {};
     	</#list>
     		$('#create${class.name}Modal').modal('toggle');
     	}
@@ -103,5 +106,18 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     				})
     		})
     	}
+    	
+    	<#if class.zoomProperties?size != 0>
+    	$scope.filterFunction = function(${class.name?uncap_first}) {
+    		if($scope.searchKeyword == "")
+    			return true;
+    		var check = <#list class.zoomProperties as zoomProperty><#list zoomProperty.showProperties as show>${class.name?uncap_first}.${zoomProperty.name}.${show}+" "+</#list></#list>" ";
+    		if(check.includes($scope.searchKeyword))
+    	    {
+    	       	return true; 
+    	    }
+    		return false;
+    	};
+	   </#if>
     	
     });
