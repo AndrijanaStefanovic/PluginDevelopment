@@ -10,6 +10,13 @@
 					data-ng-show="sortType == '${property.name}'" class="fa fa-caret-down"></span>
 				</a></td>
 				</#if>
+				<#if property.zoom>
+					<#list property.showProperties as show>
+				<td><a data-ng-click="sortType = '${property.name}.${show}'"><#list show?cap_first?split("(?=[A-Z])", "r") as token>${token} </#list><span
+					data-ng-show="sortType == '${property.name}.${show}'" class="fa fa-caret-down"></span>
+				</a></td>
+					</#list>
+				</#if>
 			</#list>
 		</tr>
 	</thead>
@@ -20,6 +27,11 @@
 			<#list properties as property>
 				<#if property.uiProperty>
 					<td>{{x.${property.name} <#if property.componentKind == "dateChooser">| date : "dd-MM-yyyy HH:mm" </#if>}}</td>
+				</#if>
+				<#if property.zoom>
+					<#list property.showProperties as show>
+					<td>{{x.${property.name}.${show}}}</td>
+					</#list>
 				</#if>
 			</#list>
 			
@@ -49,7 +61,7 @@
 					<#if property.zoom>
 						<select name="select${property.name?cap_first}" id="select${property.name?cap_first}" ng-model="${class.name?uncap_first}.${property.name}.id">
 							<option ng-repeat="x in ${property.name}List" value="{{x.id}}">
-								{{x.id}}
+							<#list property.showProperties as show>{{x.${show}}} </#list>
 							</option>
 						</select>
 					</#if>
@@ -87,7 +99,7 @@
 					<#if property.zoom>
 						<select id="updateSelect${property.name?cap_first}">
 							<option data-ng-repeat="x in ${property.name}List" value="{{x.id}}">
-								{{x.id}}
+								<#list property.showProperties as show>{{x.${show}}} </#list>
 							</option>
 						</select>
 					</#if>

@@ -176,13 +176,24 @@ public class ModelAnalyzer {
 			}
 		}
 		
-		boolean zoom = false;
-		if(StereotypesHelper.getAppliedStereotypeByString(p, "Zoom") != null){
-			zoom = true;
-		} 
 		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
-				lower, upper, readonly, length, precision, componentKind, uiProperty, label, zoom);
+				lower, upper, readonly, length, precision, componentKind, uiProperty, label, false);
+		
+		
+		Stereotype zoomStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Zoom");
+		if( zoomStereotype != null){
+			prop.setZoom(true);
+			List showPropertiesList = StereotypesHelper.getStereotypePropertyValue(p, zoomStereotype, "show");
+			if(!showPropertiesList.isEmpty()) {
+				String showPropertiesString = showPropertiesList.get(0).toString();
+				String tokens[] = showPropertiesString.split(",");
+				for(String token : tokens) {
+					prop.addShowProperty(token.trim());
+				}
+			}
+		} 
+	
 		return prop;		
 	}	
 	

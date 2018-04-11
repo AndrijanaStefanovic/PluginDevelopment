@@ -1,5 +1,8 @@
 package myplugin.generator.fmmodel;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class FMProperty extends FMElement  {
 	//Property type
@@ -24,6 +27,8 @@ public class FMProperty extends FMElement  {
 	private String label;
 	
 	private boolean zoom;
+	
+	private List<String> showProperties = new ArrayList<String>();
 	
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
 	 * Also, provide these meta-attributes or tags in the modeling languange metaclass or 
@@ -131,5 +136,21 @@ public class FMProperty extends FMElement  {
 
 	public void setUpper(Integer upper) {
 		this.upper = upper;
+	}
+	
+	public List<String> getShowProperties(){
+		return showProperties;
+	}
+	
+	public Iterator<String> getShowPropertyIterator(){
+		return showProperties.iterator();
+	}
+	
+	public void addShowProperty(String showProperty){
+		showProperties.add(showProperty);		
+	}
+	
+	public int getShowPropertiesCount(){
+		return showProperties.size();
 	}
 }
