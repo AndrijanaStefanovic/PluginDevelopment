@@ -61,9 +61,10 @@
 				<h4 class="modal-title">Dodavanje</h4>
 			</div>
 			<div class="modal-body">
+				<form name="createForm">
 				<#list properties as property>
 					<#if property.zoom>
-						<select name="select${property.name?cap_first}" id="select${property.name?cap_first}" ng-model="${class.name?uncap_first}.${property.name}.id">
+						<select name="select${property.name?cap_first}" id="select${property.name?cap_first}" ng-model="${class.name?uncap_first}.${property.name}.id" required>
 							<option ng-repeat="x in ${property.name}List" value="{{x.id}}">
 							<#list property.showProperties as show>{{x.${show}}} </#list>
 							</option>
@@ -71,7 +72,7 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-							<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" ><br>
+							<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.type == "int" || property.type == "float"> <#else>maxlength="${property.length}"</#if> required><br>
 						</#if>
 						<#if property.componentKind == "dateChooser">
 							<div class="input-group date" id="dateTime${property.name?cap_first}" data-ng-init="initDateTimePicker${property.name?cap_first}()">
@@ -82,9 +83,10 @@
 					</#if>
 				</#list>
 				<br>
+				</form>
 			</div>
 			<div class="modal-footer">
-				<button data-ng-click="create${class.name}()" class="btn btn-primary">U redu</button>
+				<button data-ng-click="create${class.name}()" class="btn btn-primary" data-ng-disabled="!createForm.$valid">U redu</button>
 				<input type="button" class="btn btn-primary" value="Otkaži" data-dismiss="modal">
 			</div>
 		</div>
@@ -99,9 +101,10 @@
 				<h4 class="modal-title">Izmena</h4>
 			</div>
 			<div class="modal-body">
+				<form name="updateForm">
 				<#list properties as property>
 					<#if property.zoom>
-						<select id="updateSelect${property.name?cap_first}">
+						<select id="updateSelect${property.name?cap_first}" required>
 							<option data-ng-repeat="x in ${property.name}List" value="{{x.id}}">
 								<#list property.showProperties as show>{{x.${show}}} </#list>
 							</option>
@@ -109,7 +112,7 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if>><br>
+							<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if> required><br>
 						</#if>
 						<#if property.componentKind == "dateChooser">
 							<div class="input-group date" id="updateDateTime${property.name?cap_first}" data-ng-init="initDateTimePicker${property.name?cap_first}()">
@@ -120,9 +123,10 @@
 					</#if>
 				</#list>
 				<br>
+				</form>
 			</div>
 			<div class="modal-footer">
-				<button data-ng-click="update${class.name}()" class="btn btn-primary">U redu</button>
+				<button data-ng-click="update${class.name}()" class="btn btn-primary" data-ng-disabled="!updateForm.$valid">U redu</button>
 				<input type="button" class="btn btn-primary" value="Otkaži" data-dismiss="modal">
 			</div>
 		</div>
