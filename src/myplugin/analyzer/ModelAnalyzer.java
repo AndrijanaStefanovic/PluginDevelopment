@@ -176,9 +176,21 @@ public class ModelAnalyzer {
 			}
 		}
 		
+		boolean perProperty = false;
+		boolean nullable = true;
+		Stereotype persistantProperty = StereotypesHelper.getAppliedStereotypeByString(p, "PersistantProperty");
+		if(persistantProperty != null){
+			perProperty = true;
+			List nullableList = StereotypesHelper.getStereotypePropertyValue(p, persistantProperty, "nullable");
+			if(!nullableList.isEmpty()) {
+				 nullable = (Boolean)nullableList.get(0);
+			}
+		}
+		
 		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
-				lower, upper, readonly, length, precision, componentKind, uiProperty, label, false);
+				lower, upper, readonly, length, precision, componentKind, uiProperty, label, false,
+				perProperty, nullable);
 		
 		
 		Stereotype zoomStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Zoom");

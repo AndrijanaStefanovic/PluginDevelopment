@@ -28,6 +28,10 @@ public class FMProperty extends FMElement  {
 	
 	private boolean zoom;
 	
+	private boolean perProperty;
+	
+	private boolean nullable;
+	
 	private List<String> showProperties = new ArrayList<String>();
 	
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
@@ -36,7 +40,8 @@ public class FMProperty extends FMElement  {
 
 	
 	public FMProperty(String name, String type, String visibility, int lower, int upper, boolean readonly,
-			int length, int precision, String componentKind, boolean uiProperty, String label, boolean zoom) {
+			int length, int precision, String componentKind, boolean uiProperty, String label, boolean zoom,
+			boolean perProperty, boolean nullable) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
@@ -51,6 +56,9 @@ public class FMProperty extends FMElement  {
 		this.uiProperty = uiProperty;
 		this.label = label;
 		this.zoom = zoom; 
+		
+		this.perProperty = perProperty;
+		this.nullable = nullable;
 	}
 	
 	public boolean isZoom() {
@@ -152,5 +160,21 @@ public class FMProperty extends FMElement  {
 	
 	public int getShowPropertiesCount(){
 		return showProperties.size();
+	}
+
+	public boolean isPerProperty() {
+		return perProperty;
+	}
+
+	public void setPerProperty(boolean perProperty) {
+		this.perProperty = perProperty;
+	}
+
+	public boolean isNullable() {
+		return nullable;
+	}
+
+	public void setNullable(boolean nullable) {
+		this.nullable = nullable;
 	}
 }

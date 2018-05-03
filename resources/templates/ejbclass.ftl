@@ -1,17 +1,51 @@
 package ${class.typePackage};
 
-${class.visibility} class ${class.name} {  
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+${class.visibility} class ${class.name} implements Serializable {  
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 <#list properties as property>
+	<#if property.nullable == false>
+	@Column(nullable = false)
+	<#else>
+	@Column
+	</#if>
 	<#if property.upper == 1 >   
-      ${property.visibility} ${property.type} ${property.name};
+    ${property.visibility} ${property.type} ${property.name};
+    
     <#elseif property.upper == -1 > 
-      ${property.visibility} Set<${property.type}> ${property.name} = new HashSet<${property.type}>();
+    ${property.visibility} Set<${property.type}> ${property.name} = new HashSet<${property.type}>();
+    
     <#else>   
     	<#list 1..property.upper as i>
-      ${property.visibility} ${property.type} ${property.name}${i};
+    ${property.visibility} ${property.type} ${property.name}${i};
+    
 		</#list>  
     </#if>     
 </#list>
+
+	public ${class.name}() {}
+	
+	public ${class.name}(<#list properties as property>${property.type} ${property.name}<#if property_has_next>, </#if></#list>){
+		<#list properties as property>
+		this.${property.name} = ${property.name};
+		</#list>
+	}
 
 <#list properties as property>
 	<#if property.upper == 1 >   

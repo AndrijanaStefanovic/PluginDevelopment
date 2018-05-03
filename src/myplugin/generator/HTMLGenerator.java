@@ -17,7 +17,6 @@ public class HTMLGenerator extends BasicGenerator {
 
 	public HTMLGenerator(GeneratorOptions generatorOptions) {
 		super(generatorOptions);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void generate() {
