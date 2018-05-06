@@ -190,7 +190,7 @@ public class ModelAnalyzer {
 		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
 				lower, upper, readonly, length, precision, componentKind, uiProperty, label, false,
-				perProperty, nullable);
+				perProperty, nullable, false);
 		
 		
 		Stereotype zoomStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Zoom");
@@ -205,6 +205,19 @@ public class ModelAnalyzer {
 				}
 			}
 		} 
+		
+		Stereotype nextStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Next");
+		if( nextStereotype != null){
+			prop.setNext(true);
+			List showPropertiesList = StereotypesHelper.getStereotypePropertyValue(p, zoomStereotype, "show");
+			if(!showPropertiesList.isEmpty()) {
+				String showPropertiesString = showPropertiesList.get(0).toString();
+				String tokens[] = showPropertiesString.split(",");
+				for(String token : tokens) {
+					prop.addShowProperty(token.trim());
+				}
+			}
+		}
 	
 		return prop;		
 	}	

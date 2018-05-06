@@ -1,13 +1,15 @@
-package ${class.typePackage};
+package com.ftn.mbrs.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,12 +22,15 @@ ${class.visibility} class ${class.name} implements Serializable {
 	private long id;
 	
 <#list properties as property>
+	<#if !property.next>
 	<#if property.nullable == false>
 	@Column(nullable = false)
+	<#elseif property.zoom>
+	@ManyToOne(fetch = FetchType.EAGER)
 	<#else>
 	@Column
 	</#if>
-	<#if property.upper == 1 >   
+	<#if property.upper == 1>   
     ${property.visibility} ${property.type} ${property.name};
     
     <#elseif property.upper == -1 > 
@@ -37,17 +42,21 @@ ${class.visibility} class ${class.name} implements Serializable {
     
 		</#list>  
     </#if>     
+    </#if>
 </#list>
 
 	public ${class.name}() {}
 	
-	public ${class.name}(<#list properties as property>${property.type} ${property.name}<#if property_has_next>, </#if></#list>){
+	public ${class.name}(<#list properties as property><#if !property.next>${property.type} ${property.name}<#if property_has_next><#if !properties[property_index + 1].next>, </#if></#if></#if></#list>){
 		<#list properties as property>
+		<#if !property.next>
 		this.${property.name} = ${property.name};
+		</#if>
 		</#list>
 	}
 
 <#list properties as property>
+	<#if !property.next>
 	<#if property.upper == 1 >   
       public ${property.type} get${property.name?cap_first}(){
            return ${property.name};
@@ -78,6 +87,7 @@ ${class.visibility} class ${class.name} implements Serializable {
             
 		</#list>  
     </#if>     
+    </#if>
 </#list>
 
 }
