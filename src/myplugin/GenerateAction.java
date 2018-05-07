@@ -18,6 +18,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.ControllerGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.HTMLGenerator;
 import myplugin.generator.JSAppGenerator;
@@ -80,6 +81,10 @@ class GenerateAction extends MDAction{
 			GeneratorOptions jsRoutesGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("JSRoutesGenerator");			
 			JSAppGenerator jsRoutesGenerator = new JSAppGenerator(jsRoutesGo);
 			jsRoutesGenerator.generate();
+			
+			GeneratorOptions controllerGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");			
+			ControllerGenerator controllerGenerator = new ControllerGenerator(controllerGo);
+			controllerGenerator.generate();
 			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +

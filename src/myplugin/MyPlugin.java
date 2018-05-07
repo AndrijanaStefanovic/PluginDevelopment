@@ -42,6 +42,9 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions jsServicesOptions = new GeneratorOptions("c:/temp", "jsservices", "templates", "services.js", true, "ejb");
 		GeneratorOptions jsRoutesOptions = new GeneratorOptions("c:/temp", "jsroutes", "templates", "routes.js", true, "ejb");
 		
+		GeneratorOptions controllerOptions = new GeneratorOptions("c:/temp", "controller", "templates", "{0}Controller.java", true, "ejb");
+		
+		
 		
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", ejbOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("HTMLGenerator", htmlOptions);
@@ -53,6 +56,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSServicesGenerator", jsServicesOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("JSRoutesGenerator", jsRoutesOptions);
 		
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", controllerOptions);
+		
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 		htmlOptions.setTemplateDir(pluginDir + File.separator + htmlOptions.getTemplateDir());
 		jsControllerOptions.setTemplateDir(pluginDir + File.separator + jsControllerOptions.getTemplateDir());
@@ -62,6 +67,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		jsControllersOptions.setTemplateDir(pluginDir + File.separator + jsControllersOptions.getTemplateDir());
 		jsServicesOptions.setTemplateDir(pluginDir + File.separator + jsServicesOptions.getTemplateDir());
 		jsRoutesOptions.setTemplateDir(pluginDir + File.separator + jsRoutesOptions.getTemplateDir());
+		controllerOptions.setTemplateDir(pluginDir + File.separator + controllerOptions.getTemplateDir());
 		
 	}
 
