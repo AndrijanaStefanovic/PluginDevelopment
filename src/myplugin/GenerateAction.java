@@ -19,6 +19,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.ControllerGenerator;
+import myplugin.generator.RepositoryGenerator;
+import myplugin.generator.ServiceGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.HTMLGenerator;
 import myplugin.generator.JSAppGenerator;
@@ -85,6 +87,14 @@ class GenerateAction extends MDAction{
 			GeneratorOptions controllerGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");			
 			ControllerGenerator controllerGenerator = new ControllerGenerator(controllerGo);
 			controllerGenerator.generate();
+			
+			GeneratorOptions repositoryGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepositoryGenerator");			
+			RepositoryGenerator repositoryGenerator = new RepositoryGenerator(repositoryGo);
+			repositoryGenerator.generate();
+			
+			GeneratorOptions serviceGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");			
+			ServiceGenerator serviceGenerator = new ServiceGenerator(serviceGo);
+			serviceGenerator.generate();
 			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
