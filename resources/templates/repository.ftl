@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ftn.mbrs.model.${class.name};
 <#list properties as property>
 	<#if property.zoom>
-import com.ftn.mbrs.model.${property.name};
+import com.ftn.mbrs.model.${property.name?cap_first};
 	</#if>
 </#list>
 
