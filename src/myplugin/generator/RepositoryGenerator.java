@@ -40,7 +40,8 @@ public class RepositoryGenerator extends BasicGenerator{
 						context.clear();
 						context.put("class", cl);
 						context.put("properties", cl.getProperties());	
-						context.put("zoomProperties", cl.getZoomProperties());
+						context.put("zoomProperties", cl.getZoomProperties());	
+						context.put("nextProperties", cl.getNextProperties());
 						context.put("importedPackages", cl.getImportedPackages());	
 						getTemplate().process(context, out);
 						out.flush();

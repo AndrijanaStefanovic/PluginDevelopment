@@ -46,7 +46,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 		GeneratorOptions repositoryOptions = new GeneratorOptions("c:/temp", "repository", "templates", "{0}Repository.java", true, "ejb");
 		GeneratorOptions serviceOptions = new GeneratorOptions("c:/temp", "service", "templates", "{0}Service.java", true, "ejb");
-		
+		GeneratorOptions serviceImplOptions = new GeneratorOptions("c:/temp", "serviceimpl", "templates", "{0}ServiceImpl.java", true, "ejb");
 		
 		
 		
@@ -63,6 +63,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", controllerOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", repositoryOptions);
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", serviceOptions);
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", serviceImplOptions);
 		
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 		htmlOptions.setTemplateDir(pluginDir + File.separator + htmlOptions.getTemplateDir());
@@ -78,6 +79,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 		repositoryOptions.setTemplateDir(pluginDir + File.separator + repositoryOptions.getTemplateDir());
 		serviceOptions.setTemplateDir(pluginDir + File.separator + serviceOptions.getTemplateDir());
+		serviceImplOptions.setTemplateDir(pluginDir + File.separator + serviceImplOptions.getTemplateDir());
 		
 	}
 

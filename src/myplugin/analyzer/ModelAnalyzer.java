@@ -111,6 +111,9 @@ public class ModelAnalyzer {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);	
+			if(prop.isNext()){
+				fmClass.addNextProperty(prop);
+			}
 			if(prop.isUiProperty()){
 				fmClass.addUIProperty(prop);
 			}
@@ -209,7 +212,7 @@ public class ModelAnalyzer {
 		Stereotype nextStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Next");
 		if( nextStereotype != null){
 			prop.setNext(true);
-			List showPropertiesList = StereotypesHelper.getStereotypePropertyValue(p, zoomStereotype, "show");
+			List showPropertiesList = StereotypesHelper.getStereotypePropertyValue(p, nextStereotype, "show");
 			if(!showPropertiesList.isEmpty()) {
 				String showPropertiesString = showPropertiesList.get(0).toString();
 				String tokens[] = showPropertiesString.split(",");

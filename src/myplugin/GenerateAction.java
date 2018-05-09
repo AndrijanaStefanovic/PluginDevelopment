@@ -21,6 +21,7 @@ import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.ControllerGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.ServiceGenerator;
+import myplugin.generator.ServiceImplGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.HTMLGenerator;
 import myplugin.generator.JSAppGenerator;
@@ -95,6 +96,11 @@ class GenerateAction extends MDAction{
 			GeneratorOptions serviceGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");			
 			ServiceGenerator serviceGenerator = new ServiceGenerator(serviceGo);
 			serviceGenerator.generate();
+			
+			GeneratorOptions serviceImplGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");			
+			ServiceImplGenerator serviceImplGenerator = new ServiceImplGenerator(serviceImplGo);
+			serviceImplGenerator.generate();
+			
 			
 			/**  @ToDo: Also call other generators */ 
 			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +

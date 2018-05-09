@@ -18,6 +18,9 @@ public class FMClass extends FMType {
 	//Zoom properties
 	private List<FMProperty> zoomProperties = new ArrayList<FMProperty>();
 	
+	//Next properties
+	private List<FMProperty> nextProperties = new ArrayList<FMProperty>();
+	
 	//list of packages (for import declarations) 
 	private List<String> importedPackages = new ArrayList<String>();
 	
@@ -75,6 +78,22 @@ public class FMClass extends FMType {
 	
 	public int getZoomPropertyCount(){
 		return zoomProperties.size();
+	}
+	
+	public List<FMProperty> getNextProperties(){
+		return nextProperties;
+	}
+	
+	public Iterator<FMProperty> getNextPropertyIterator(){
+		return nextProperties.iterator();
+	}
+	
+	public void addNextProperty(FMProperty property){
+		nextProperties.add(property);		
+	}
+	
+	public int getNextPropertyCount(){
+		return nextProperties.size();
 	}
 	
 	public List<String> getImportedPackages(){

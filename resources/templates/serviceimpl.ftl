@@ -5,48 +5,71 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ftn.mbrs.model.Kartica;
-import com.ftn.mbrs.model.Vozilo;
-import com.ftn.mbrs.repository.KarticaRepository;
-import com.ftn.mbrs.repository.VoziloRepository;
-import com.ftn.mbrs.service.KarticaService;
+<#list properties as property><#if property.zoom>
+import com.ftn.mbrs.model.${property.name?cap_first};
+import com.ftn.mbrs.repository.${property.name?cap_first}Repository;
+</#if></#list>
+
+import com.ftn.mbrs.service.${class.name}Service;
+import com.ftn.mbrs.model.${class.name};
+import com.ftn.mbrs.repository.${class.name}Repository;
 
 @Service
 ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Service{
 
 	@Autowired
-	private ${class.name}Repository karticaRepository;
+	private ${class.name}Repository ${class.name?uncap_first}Repository;
 	
-	//
+	<#list properties as property><#if property.zoom>
 	@Autowired
-	private VoziloRepository voziloRepository;
+	private ${property.name?cap_first}Repository ${property.name}Repository;
 	
-	//
+	</#if></#list>
+	
 	@Override
-	public ${class.name} save(${class.name} kartica) {
-		return karticaRepository.save(kartica);
+	public ${class.name} save(${class.name} ${class.name?uncap_first}<#list properties as property><#if property.zoom>, Long ${property.name}Id</#if></#list>) {
+		<#list properties as property><#if property.zoom>
+		${property.name?cap_first} ${property.name} =  ${property.name}Repository.getOne(${property.name}Id);
+		${class.name?uncap_first}.set${property.name?cap_first}(${property.name});
+	
+		</#if></#list>	
+		return ${class.name?uncap_first}Repository.save(${class.name?uncap_first});
 	}
 
 	//
 	@Override
-	public ${class.name} update(${class.name} kartica) {
-		Kartica temp = karticaRepository.getOne(kartica.getId());
-		temp.setImeVlasnika(kartica.getImeVlasnika());
-		temp.setPrezimeVlasnika(kartica.getPrezimeVlasnika());
-		temp.setKredit(kartica.getKredit());
-		temp.setDate(kartica.getDate());
-		return karticaRepository.save(temp);
+	public ${class.name} update(${class.name} ${class.name?uncap_first}) {		
+		${class.name} temp${class.name} = ${class.name?uncap_first}Repository.getOne(${class.name?uncap_first}.getId());
+		
+		<#list properties as property>
+		<#if !property.next && !property.zoom>   
+		temp.set${property.name?cap_first}(${class.name?uncap_first}.${property.name?cap_first}());    	
+    	</#if>
+    	</#list>
+    	 	
+    	<#list properties as property><#if property.zoom>
+		${property.name?cap_first} temp${property.name?cap_first} = ${property.name}Repository.getOne(${class.name}.get${property.name?cap_first}().getId());
+		temp${class.name}.set${property.name?cap_first}(temp${property.name?cap_first});
+		</#if></#list>	
+		
+		return ${class.name?uncap_first}Repository.save(temp${class.name?uncap_first});
 	}
 
 	//
 	@Override
 	public void delete(Long id) {
-		Kartica kartica = karticaRepository.getOne(id);
-		List<Vozilo> vozila = voziloRepository.findByKartica(kartica);
-		for (Vozilo vozilo : vozila) {
-			voziloRepository.delete(vozilo);
-		}
-		karticaRepository.deleteById(id);
+		${class.name} ${class.name?uncap_first} = ${class.name?uncap_first}Repository.getOne(id);
+		
+		<#list properties as property>
+		<#if property.next>   
+		List<${property.name?cap_first}> ${property.name}s = ${property.name?cap_first}Repository.findBy${class.name}(${class.name?uncap_first});
+		for (${property.name?cap_first} ${property.name} : ${property.name}s) {
+			${property.name}Repository.delete(${property.name});
+		}    	
+    	</#if>
+		</#list>
+		
+		${class.name?uncap_first}Repository.deleteById(id);
 	}
 
 	@Override

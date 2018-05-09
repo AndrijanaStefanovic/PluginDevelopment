@@ -15,9 +15,9 @@ import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 
-public class ServiceGenerator extends BasicGenerator{
+public class ServiceImplGenerator extends BasicGenerator{
 
-	public ServiceGenerator(GeneratorOptions generatorOptions) {
+	public ServiceImplGenerator(GeneratorOptions generatorOptions) {
 		super(generatorOptions);
 	}
 	
