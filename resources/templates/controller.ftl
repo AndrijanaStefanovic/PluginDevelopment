@@ -23,9 +23,9 @@ ${class.visibility} class ${class.name}Controller {
 	@Autowired
 	private ${class.name}Service ${class.name?uncap_first}Service;
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<${class.name}> save(@Valid @RequestBody ${class.name} ${class.name?uncap_first}) {
-		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(${class.name?uncap_first});
+	@RequestMapping(<#list properties as property><#if property.zoom>value = "/{${property.name?uncap_first}Id}", </#if></#list>method = RequestMethod.POST)
+	public ResponseEntity<${class.name}> save(@Valid @RequestBody ${class.name} ${class.name?uncap_first}<#list properties as property><#if property.zoom>, @PathVariable Long ${property.name?uncap_first}Id</#if></#list>) {
+		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(${class.name?uncap_first}<#list properties as property><#if property.zoom>, ${property.name?uncap_first}Id</#if></#list>);
 		return new ResponseEntity<${class.name}>(saved${class.name}, HttpStatus.CREATED);
 	}
 	

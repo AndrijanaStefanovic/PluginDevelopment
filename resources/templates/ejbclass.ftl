@@ -22,7 +22,6 @@ ${class.visibility} class ${class.name} implements Serializable {
 	private long id;
 	
 <#list properties as property>
-	<#if !property.next>
 	<#if property.nullable == false>
 	@Column(nullable = false)
 	<#elseif property.zoom>
@@ -42,21 +41,25 @@ ${class.visibility} class ${class.name} implements Serializable {
     
 		</#list>  
     </#if>     
-    </#if>
 </#list>
 
 	public ${class.name}() {}
 	
-	public ${class.name}(<#list properties as property><#if !property.next>${property.type} ${property.name}<#if property_has_next><#if !properties[property_index + 1].next>, </#if></#if></#if></#list>){
+	public ${class.name}(<#list properties as property>${property.type} ${property.name}<#if property_has_next>, </#if></#list>){
 		<#list properties as property>
-		<#if !property.next>
 		this.${property.name} = ${property.name};
-		</#if>
 		</#list>
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 <#list properties as property>
-	<#if !property.next>
 	<#if property.upper == 1 >   
       public ${property.type} get${property.name?cap_first}(){
            return ${property.name};
@@ -87,7 +90,6 @@ ${class.visibility} class ${class.name} implements Serializable {
             
 		</#list>  
     </#if>     
-    </#if>
 </#list>
 
 }
