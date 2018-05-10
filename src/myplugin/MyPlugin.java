@@ -29,12 +29,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		 * ProjectOptions.xml and take ejb generator options */
 		
 		//for test purpose only:
-		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "ejbclass", "templates", "{0}.java", true, "ejb"); 
+		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp/model", "ejbclass", "templates", "{0}.java", true, "ejb"); 
 		
-		GeneratorOptions htmlOptions = new GeneratorOptions("c:/temp", "htmlpage", "templates", "{0}.html", true, "ejb");
+		GeneratorOptions htmlOptions = new GeneratorOptions("c:/temp/html", "htmlpage", "templates", "{0}.html", true, "ejb");
 		
-		GeneratorOptions jsControllerOptions = new GeneratorOptions("c:/temp", "jscontroller", "templates", "{0}Controller.js", true, "ejb");
-		GeneratorOptions jsServiceOptions = new GeneratorOptions("c:/temp", "jsservice", "templates", "{0}Service.js", true, "ejb");
+		GeneratorOptions jsControllerOptions = new GeneratorOptions("c:/temp/jsController", "jscontroller", "templates", "{0}Controller.js", true, "ejb");
+		GeneratorOptions jsServiceOptions = new GeneratorOptions("c:/temp/jsService", "jsservice", "templates", "{0}Service.js", true, "ejb");
 		
 		GeneratorOptions jsAppOptions = new GeneratorOptions("c:/temp", "jsapp", "templates", "app.js", true, "ejb");
 		GeneratorOptions jsDirectivesOptions = new GeneratorOptions("c:/temp", "jsdirectives", "templates", "directives.js", true, "ejb");
@@ -42,11 +42,11 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions jsServicesOptions = new GeneratorOptions("c:/temp", "jsservices", "templates", "services.js", true, "ejb");
 		GeneratorOptions jsRoutesOptions = new GeneratorOptions("c:/temp", "jsroutes", "templates", "routes.js", true, "ejb");
 		
-		GeneratorOptions controllerOptions = new GeneratorOptions("c:/temp", "controller", "templates", "{0}Controller.java", true, "ejb");
+		GeneratorOptions controllerOptions = new GeneratorOptions("c:/temp/controller", "controller", "templates", "{0}Controller.java", true, "ejb");
 		
-		GeneratorOptions repositoryOptions = new GeneratorOptions("c:/temp", "repository", "templates", "{0}Repository.java", true, "ejb");
-		GeneratorOptions serviceOptions = new GeneratorOptions("c:/temp", "service", "templates", "{0}Service.java", true, "ejb");
-		GeneratorOptions serviceImplOptions = new GeneratorOptions("c:/temp", "serviceimpl", "templates", "{0}ServiceImpl.java", true, "ejb");
+		GeneratorOptions repositoryOptions = new GeneratorOptions("c:/temp/repository", "repository", "templates", "{0}Repository.java", true, "ejb");
+		GeneratorOptions serviceOptions = new GeneratorOptions("c:/temp/service", "service", "templates", "{0}Service.java", true, "ejb");
+		GeneratorOptions serviceImplOptions = new GeneratorOptions("c:/temp/service/impl", "serviceimpl", "templates", "{0}ServiceImpl.java", true, "ejb");
 		
 		
 		
