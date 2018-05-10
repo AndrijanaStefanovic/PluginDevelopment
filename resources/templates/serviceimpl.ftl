@@ -48,7 +48,7 @@ ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Servi
 		
 		<#list properties as property>
 		<#if !property.next && !property.zoom>   
-		temp.set${property.name?cap_first}(${class.name?uncap_first}.${property.name?cap_first}());    	
+		temp${class.name}.set${property.name?cap_first}(${class.name?uncap_first}.get${property.name?cap_first}());    	
     	</#if>
     	</#list>
     	 	
