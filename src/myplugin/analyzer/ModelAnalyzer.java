@@ -29,7 +29,6 @@ import myplugin.generator.fmmodel.FMProperty;
  * the intermediate data structure (@see myplugin.generator.fmmodel.FMModel) optimized
  * for code generation using freemarker. Model Analyzer now takes metadata only for ejb code 
  * generation
-
  * @ToDo: Enhance (or completely rewrite) myplugin.generator.fmmodel classes and  
  * Model Analyzer methods in order to support GUI generation. */ 
 
