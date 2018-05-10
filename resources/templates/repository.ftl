@@ -15,7 +15,7 @@ ${class.visibility} interface ${class.name}Repository extends JpaRepository<${cl
 
 <#list properties as property>
 	<#if property.zoom>
-	public List<Vozilo> findBy${property.name?cap_first}(${property.name?cap_first} ${property.name?uncap_first});
+	public List<${class.name}> findBy${property.name?cap_first}(${property.name?cap_first} ${property.name?uncap_first});
 	</#if>
 </#list>
 
