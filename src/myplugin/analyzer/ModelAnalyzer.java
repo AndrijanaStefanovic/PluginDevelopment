@@ -1,6 +1,7 @@
 package myplugin.analyzer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -111,16 +112,30 @@ public class ModelAnalyzer {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);	
-			if(prop.isNext()){
-				fmClass.addNextProperty(prop);
-			}
+			
 			if(prop.isUiProperty()){
 				fmClass.addUIProperty(prop);
 			}
 			if(prop.isZoom()){
 				fmClass.addZoomProperty(prop);
 			}
-		}	
+		}
+		
+		Collection<Association> associations = cl.get_associationOfEndType();
+		for(Association a : associations){
+			List<Property> properties = a.getMemberEnd();
+			for(Property p : properties) {
+				Stereotype nextStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Next");
+				if(nextStereotype != null){
+					FMProperty prop = getPropertyData(p, cl);
+					if(!prop.getType().equals(cl.getName())){
+						//JOptionPane.showMessageDialog(null, cl.getName() + " " +p.getName());
+						fmClass.addNextProperty(prop);
+						//fmClass.addProperty(prop);
+					}
+				}
+			}
+		}
 				
 		/** @ToDo:
 		 * Add import declarations etc. */		
