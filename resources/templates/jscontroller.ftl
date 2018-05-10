@@ -67,8 +67,12 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     	$scope.delete${class.name} = function(${class.name?uncap_first}) {
     		${class.name}Service.delete${class.name}(${class.name?uncap_first}.id)
     			.then(function successCallback(response) {
-    				var index = $scope.${class.name?uncap_first}List.indexOf(${class.name?uncap_first});
-    				$scope.${class.name?uncap_first}List.splice(index, 1); 
+    				if(response.data != "OK") {
+    					toastr.error("Nije moguce brisanje.");
+    				} else {
+    					var index = $scope.${class.name?uncap_first}List.indexOf(${class.name?uncap_first});
+    					$scope.${class.name?uncap_first}List.splice(index, 1); 
+    				}
     		})
     	}
     	
