@@ -133,3 +133,7 @@
 	</div>
 </div>
 </div>
+
+<#if class.name == "Kartica">
+<button-directive></button-directive>
+</#if>

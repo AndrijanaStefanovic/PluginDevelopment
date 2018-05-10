@@ -89,6 +89,10 @@ class GenerateAction extends MDAction{
 			JSAppGenerator jsIndexGenerator = new JSAppGenerator(jsIndexGo);
 			jsIndexGenerator.generate();
 			
+			GeneratorOptions homeGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("HomeGenerator");			
+			JSAppGenerator homeGenerator = new JSAppGenerator(homeGo);
+			homeGenerator.generate();
+			
 			GeneratorOptions controllerGo = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");			
 			ControllerGenerator controllerGenerator = new ControllerGenerator(controllerGo);
 			controllerGenerator.generate();

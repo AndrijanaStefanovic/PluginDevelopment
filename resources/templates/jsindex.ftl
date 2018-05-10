@@ -26,13 +26,14 @@
     <#list classes as class>
     	<script src="js/controllers/${class.name}Controller.js"></script>
     </#list>
+        <script src="js/controllers/buttonController.js"></script>
 
 		<!--Factories-->
 	<#list classes as class>
     	<script src="js/services/${class.name}Service.js"></script>
     </#list>
 
-
+		<script src="js/directives/buttonDirective.js"></script>
 	</head>
 	<body>
 		<div class="ext-content">
