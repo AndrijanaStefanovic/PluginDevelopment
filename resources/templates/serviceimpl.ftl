@@ -10,6 +10,11 @@ import com.ftn.mbrs.model.${property.name?cap_first};
 import com.ftn.mbrs.repository.${property.name?cap_first}Repository;
 </#if></#list>
 
+<#list nextProperties as property>
+import com.ftn.mbrs.model.${property.name?cap_first};
+import com.ftn.mbrs.repository.${property.name?cap_first}Repository;
+</#list>
+
 import com.ftn.mbrs.service.${class.name}Service;
 import com.ftn.mbrs.model.${class.name};
 import com.ftn.mbrs.repository.${class.name}Repository;
@@ -19,7 +24,13 @@ ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Servi
 
 	@Autowired
 	private ${class.name}Repository ${class.name?uncap_first}Repository;
+
+	<#list nextProperties as property>
+	@Autowired
+	private ${property.name?cap_first}Repository ${property.name}Repository;
 	
+	</#list>
+			
 	<#list properties as property><#if property.zoom>
 	@Autowired
 	private ${property.name?cap_first}Repository ${property.name}Repository;
@@ -43,16 +54,16 @@ ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Servi
 		
 		<#list properties as property>
 		<#if !property.next && !property.zoom>   
-		temp.set${property.name?cap_first}(${class.name?uncap_first}.${property.name?cap_first}());    	
+		temp${class.name}.set${property.name?cap_first}(${class.name?uncap_first}.get${property.name?cap_first}());    	
     	</#if>
     	</#list>
     	 	
     	<#list properties as property><#if property.zoom>
-		${property.name?cap_first} temp${property.name?cap_first} = ${property.name}Repository.getOne(${class.name}.get${property.name?cap_first}().getId());
+		${property.name?cap_first} temp${property.name?cap_first} = ${property.name}Repository.getOne(${class.name?uncap_first}.get${property.name?cap_first}().getId());
 		temp${class.name}.set${property.name?cap_first}(temp${property.name?cap_first});
 		</#if></#list>	
 		
-		return ${class.name?uncap_first}Repository.save(temp${class.name?uncap_first});
+		return ${class.name?uncap_first}Repository.save(temp${class.name});
 	}
 
 	//
@@ -60,13 +71,11 @@ ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Servi
 	public void delete(Long id) {
 		${class.name} ${class.name?uncap_first} = ${class.name?uncap_first}Repository.getOne(id);
 		
-		<#list properties as property>
-		<#if property.next>   
-		List<${property.name?cap_first}> ${property.name}s = ${property.name?cap_first}Repository.findBy${class.name}(${class.name?uncap_first});
+		<#list nextProperties as property>   
+		List<${property.name?cap_first}> ${property.name}s = ${property.name?uncap_first}Repository.findBy${class.name}(${class.name?uncap_first});
 		for (${property.name?cap_first} ${property.name} : ${property.name}s) {
 			${property.name}Repository.delete(${property.name});
 		}    	
-    	</#if>
 		</#list>
 		
 		${class.name?uncap_first}Repository.deleteById(id);

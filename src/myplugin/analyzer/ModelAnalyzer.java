@@ -1,10 +1,15 @@
 package myplugin.analyzer;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Association;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Element;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
@@ -24,7 +29,6 @@ import myplugin.generator.fmmodel.FMProperty;
  * the intermediate data structure (@see myplugin.generator.fmmodel.FMModel) optimized
  * for code generation using freemarker. Model Analyzer now takes metadata only for ejb code 
  * generation
-
  * @ToDo: Enhance (or completely rewrite) myplugin.generator.fmmodel classes and  
  * Model Analyzer methods in order to support GUI generation. */ 
 
@@ -107,16 +111,30 @@ public class ModelAnalyzer {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);	
-			if(prop.isNext()){
-				fmClass.addNextProperty(prop);
-			}
+			
 			if(prop.isUiProperty()){
 				fmClass.addUIProperty(prop);
 			}
 			if(prop.isZoom()){
 				fmClass.addZoomProperty(prop);
 			}
-		}	
+		}
+		
+		Collection<Association> associations = cl.get_associationOfEndType();
+		for(Association a : associations){
+			List<Property> properties = a.getMemberEnd();
+			for(Property p : properties) {
+				Stereotype nextStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Next");
+				if(nextStereotype != null){
+					FMProperty prop = getPropertyData(p, cl);
+					if(!prop.getType().equals(cl.getName())){
+						//JOptionPane.showMessageDialog(null, cl.getName() + " " +p.getName());
+						fmClass.addNextProperty(prop);
+						//fmClass.addProperty(prop);
+					}
+				}
+			}
+		}
 				
 		/** @ToDo:
 		 * Add import declarations etc. */		
