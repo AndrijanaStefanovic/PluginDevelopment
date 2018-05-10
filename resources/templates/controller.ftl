@@ -34,11 +34,11 @@ ${class.visibility} class ${class.name}Controller {
 		${class.name} updated${class.name} = ${class.name?uncap_first}Service.update(${class.name?uncap_first});
 		return new ResponseEntity<${class.name}>(updated${class.name}, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Long> delete(@PathVariable Long id) {
-		${class.name?uncap_first}Service.delete(id);
-		return new ResponseEntity<Long>(id, HttpStatus.OK);
+		
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/plain")
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		String response = ${class.name?uncap_first}Service.delete(id);
+		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

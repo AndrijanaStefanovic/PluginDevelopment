@@ -68,17 +68,18 @@ ${class.visibility} class ${class.name}ServiceImpl implements ${class.name}Servi
 
 	//
 	@Override
-	public void delete(Long id) {
+	public String delete(Long id) {
 		${class.name} ${class.name?uncap_first} = ${class.name?uncap_first}Repository.getOne(id);
 		
 		<#list nextProperties as property>   
 		List<${property.name?cap_first}> ${property.name}s = ${property.name?uncap_first}Repository.findBy${class.name}(${class.name?uncap_first});
-		for (${property.name?cap_first} ${property.name} : ${property.name}s) {
-			${property.name}Repository.delete(${property.name});
+		if(!${property.name}s.isEmpty()) {
+			return "ERROR";
 		}    	
 		</#list>
 		
 		${class.name?uncap_first}Repository.deleteById(id);
+		return "OK";
 	}
 
 	@Override

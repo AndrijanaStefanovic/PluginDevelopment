@@ -10,7 +10,7 @@ ${class.visibility} interface ${class.name}Service {
 	
 	public ${class.name} update(${class.name} ${class.name?uncap_first});
 
-	public void delete(Long id);
+	public String delete(Long id);
 	
 	public ${class.name} findOne(Long id);
 	
