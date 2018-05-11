@@ -19,6 +19,7 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
 import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
+import a.a.c1;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
@@ -63,11 +64,12 @@ public class ModelAnalyzer {
 		if (pack.getName() == null) throw  
 			new AnalyzeException("Packages must have names!");
 		
+		String lastName=packageOwner;
 		String packageName = packageOwner;
 		if (pack != root) {
 			packageName += "." + pack.getName();
+			lastName=pack.getName();
 		}
-		
 		if (pack.hasOwnedElement()) {
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
@@ -75,6 +77,7 @@ public class ModelAnalyzer {
 				if (ownedElement instanceof Class) {
 					Class cl = (Class)ownedElement;
 					FMClass fmClass = getClassData(cl, packageName);
+					fmClass.addImportedPackage(lastName);
 					FMModel.getInstance().getClasses().add(fmClass);
 				}
 				
