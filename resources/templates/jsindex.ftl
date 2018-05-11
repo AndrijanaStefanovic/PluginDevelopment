@@ -1,5 +1,5 @@
-//${currentDate}
-//Generisano na osnovu sablona: jsindex.ftl
+<!-- ${currentDate} -->
+<!-- Generisano na osnovu sablona: jsindex.ftl -->
 
 <html ng-app="${appName?uncap_first}App">
 	<head>
