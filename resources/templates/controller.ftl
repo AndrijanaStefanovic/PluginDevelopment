@@ -24,7 +24,7 @@ ${class.visibility} class ${class.name}Controller {
 	@Autowired
 	private ${class.name}Service ${class.name?uncap_first}Service;
 	
-	@RequestMapping(<#list properties as property><#if property.zoom>value = "/<#break></#if></#list><#list properties as property><#if property.zoom>{${property.name?uncap_first}Id}<#if property_has_next><#if properties[property_index + 1].zoom>/</#if></#if><#if !property_has_next>", </#if></#if></#list>method = RequestMethod.POST)
+	@RequestMapping(<#list properties as property><#if property.zoom>value = "/<#break></#if></#list><#list properties as property><#if property.zoom>{${property.name?uncap_first}Id}<#if property_has_next><#list properties as prop><#if property_index < prop_index && prop.zoom>/<#break></#if></#list></#if><#if !property_has_next>", </#if></#if></#list>method = RequestMethod.POST)
 	public ResponseEntity<${class.name}> save(@Valid @RequestBody ${class.name} ${class.name?uncap_first}<#list properties as property><#if property.zoom>, @PathVariable Long ${property.name?uncap_first}Id</#if></#list>) {
 		try
 		{
