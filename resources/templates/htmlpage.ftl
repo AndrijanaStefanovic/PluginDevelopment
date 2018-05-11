@@ -1,3 +1,7 @@
+<!-- ${currentDate} -->
+<!-- Generisano na osnovu sablona: htmlpage.ftl -->
+<!-- Element modela: <#list importedPackages as package>${package}::</#list>${class.name} -->
+
 <div ng-controller='${class.name}Controller'>
 <h1>${class.name}</h1>
 
