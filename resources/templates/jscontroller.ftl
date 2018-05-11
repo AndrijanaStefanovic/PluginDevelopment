@@ -28,7 +28,7 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     		.then(function successCallback(response) {
     			$scope.${class.name?uncap_first}List = response.data;
     		}, function errorCallback(response){
-    			toastr.error("Greska");
+    			toastr.error("Doslo je do greske.");
     		})
 
 	<#list zoomProperties as zoomProperty>
@@ -36,7 +36,7 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     		.then(function successCallback(response) {
     			$scope.${zoomProperty.name}List = response.data;
     		}, function errorCallback(response){
-    			toastr.error("Greska");
+    			toastr.error("Doslo je do greske.");
     		})
     		
 	</#list>
@@ -61,6 +61,8 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     			.then(function successCallback(response) {
     				$scope.${class.name?uncap_first}List.push(response.data);
     				 $('#create${class.name}Modal').modal('toggle');
+    			}, function errorCallback(response){
+    				toastr.error("Doslo je do greske.");
     			})
     	}
 
@@ -73,7 +75,9 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     					var index = $scope.${class.name?uncap_first}List.indexOf(${class.name?uncap_first});
     					$scope.${class.name?uncap_first}List.splice(index, 1); 
     				}
-    		})
+    			}, function errorCallback(response){
+    				toastr.error("Doslo je do greske.");
+    			})
     	}
     	
     	$scope.openUpdateModal = function(${class.name?uncap_first}) {
@@ -106,9 +110,11 @@ angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     					.then(function successCallback(response) {
     						$scope.${class.name?uncap_first}List = response.data;
     					}, function errorCallback(response){
-    						toastr.error("Greska");
+    						toastr.error("Doslo je do greske.");
     				})
-    		})
+    			}, function errorCallback(response){
+    				toastr.error("Doslo je do greske.");
+    			})
     	}
     	
     	<#if class.zoomProperties?size != 0>
