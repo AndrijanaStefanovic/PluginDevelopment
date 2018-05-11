@@ -16,7 +16,7 @@
 				</#if>
 				<#if property.zoom>
 					<#list property.showProperties as show>
-				<td><a data-ng-click="sortType = '${property.name}.${show}'"><#list show?cap_first?split("(?=[A-Z])", "r") as token>${token} </#list><span
+				<td><a data-ng-click="sortType = '${property.name}.${show}'"><#assign count = 0><#list show?cap_first?split("(?=[A-Z])", "r") as token><#if count == 0>${token} <#else>${token?uncap_first} </#if><#assign count = count + 1></#list><span
 					data-ng-show="sortType == '${property.name}.${show}'" class="fa fa-caret-down"></span>
 				</a></td>
 					</#list>
