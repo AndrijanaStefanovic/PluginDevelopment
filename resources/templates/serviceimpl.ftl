@@ -1,3 +1,8 @@
+//${currentDate}
+//Generisano na osnovu sablona: serviceimpl.ftl
+//Element modela: <#list importedPackages as package>${package}::</#list>${class.name}
+
+
 package com.ftn.mbrs.service.impl;
 
 import java.util.List;

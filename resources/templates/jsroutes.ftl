@@ -1,4 +1,6 @@
+//${currentDate}
 //Generisano na osnovu sablona: jsroutes.ftl
+
 var app = angular.module('${appName?uncap_first}App.routes', ['ngRoute']);
 
 app.config(['$routeProvider','$httpProvider', function ($routeProvider, $httpProvider) {

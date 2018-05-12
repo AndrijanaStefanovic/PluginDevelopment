@@ -1,5 +1,7 @@
+//${currentDate}
 //Generisano na osnovu sablona: jsservice.ftl
-//Element modela : ${class.name}
+//Element modela: <#list importedPackages as package>${package}::</#list>${class.name}
+
 angular.module('${appName?uncap_first}App.${class.name}Service', [])
 	.factory('${class.name}Service', function($http) {
 		var factory = {};

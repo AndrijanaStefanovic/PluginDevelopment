@@ -1,5 +1,6 @@
+<!-- ${currentDate} -->
 <!-- Generisano na osnovu sablona: htmlpage.ftl -->
-<!-- Element modela: ${class.name}-->
+<!-- Element modela: <#list importedPackages as package>${package}::</#list>${class.name} -->
 
 <div ng-controller='${class.name}Controller'>
 <h1><#assign count = 0><#list class.name?cap_first?split("(?=[A-Z])", "r") as token><#if count == 0>${token} <#else>${token?uncap_first} </#if><#assign count = count + 1></#list></h1>

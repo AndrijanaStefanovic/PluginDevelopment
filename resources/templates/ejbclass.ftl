@@ -1,3 +1,7 @@
+//${currentDate}
+//Generisano na osnovu sablona: ejbclass.ftl
+//Element modela: <#list importedPackages as package>${package}::</#list>${class.name}
+
 package com.ftn.mbrs.model;
 
 import java.io.Serializable;

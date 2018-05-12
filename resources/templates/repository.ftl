@@ -1,4 +1,4 @@
-
+//${currentDate}
 //Generisano na osnovu sablona: repository.ftl
 //Element modela: <#list importedPackages as package>${package}::</#list>${class.name}
 
