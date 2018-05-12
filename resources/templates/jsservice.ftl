@@ -1,3 +1,5 @@
+//Generisano na osnovu sablona: jsservice.ftl
+//Element modela : ${class.name}
 angular.module('${appName?uncap_first}App.${class.name}Service', [])
 	.factory('${class.name}Service', function($http) {
 		var factory = {};

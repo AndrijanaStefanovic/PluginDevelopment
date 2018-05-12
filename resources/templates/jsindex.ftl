@@ -1,3 +1,4 @@
+<!-- Generisano na osnovu sablona: jsindex.ftl -->
 <html ng-app="${appName?uncap_first}App">
 	<head>
 	    <meta charset="UTF-8">
@@ -9,7 +10,6 @@
     	<script src='lib/moment.js'></script>
     	<script src='lib/toastr.js'></script>
     	<script src='lib/bootstrap-datetimepicker.js'></script>
-    	
     	
     	<script src="js/app.js"></script>
     	<script src="js/controllers.js"></script>
@@ -26,7 +26,6 @@
     <#list classes as class>
     	<script src="js/controllers/${class.name}Controller.js"></script>
     </#list>
-        <script src="js/controllers/buttonController.js"></script>
 
 		<!--Factories-->
 	<#list classes as class>

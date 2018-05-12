@@ -1,6 +1,11 @@
-<div ng-controller='${class.name}Controller'>
-<h1>${class.name}</h1>
+<!-- Generisano na osnovu sablona: htmlpage.ftl -->
+<!-- Element modela: ${class.name}-->
 
+<div ng-controller='${class.name}Controller'>
+<h1><#assign count = 0><#list class.name?cap_first?split("(?=[A-Z])", "r") as token><#if count == 0>${token} <#else>${token?uncap_first} </#if><#assign count = count + 1></#list></h1>
+<#if class.name == "Kartica">
+<button-directive></button-directive>
+</#if>
 <#if class.zoomProperties?size != 0>
 <input type="text" class="form-control ng-valid ng-dirty" placeholder="Pretraga" data-ng-model="searchKeyword">
 </#if>
@@ -73,7 +78,8 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-					<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.type == "int" || property.type == "float"> <#else>maxlength="${property.length}"</#if> required><br>
+					<label>${property.label}</label>
+					<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.type == "int" || property.type == "float"><#else>maxlength="${property.length}" </#if><#if !property.nullable>required </#if>><br>
 						</#if>
 						<#if property.componentKind == "dateChooser">
 						<label for="dateTime${property.name?cap_first}"><#assign count = 0><#list property.name?cap_first?split("(?=[A-Z])", "r") as token><#if count == 0>${token} <#else>${token?uncap_first} </#if><#assign count = count + 1></#list></label>
@@ -115,7 +121,8 @@
 					</#if>
 					<#if property.uiProperty>
 						<#if property.componentKind == "textField">
-						<input type="text" placeholder="${property.label}" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.readonly> readonly</#if> required><br>
+						<label>${property.label}</label>
+						<input type="<#if property.type == "int" || property.type == "float">number<#else>text</#if>" data-ng-model="${class.name?uncap_first}.${property.name}" <#if property.type == "int" || property.type == "float"> <#else>maxlength="${property.length}"</#if><#if property.readonly> readonly</#if> <#if !property.nullable>required</#if>><br>
 						</#if>
 						<#if property.componentKind == "dateChooser">
 						<label for="updateDateTime${property.name?cap_first}"><#assign count = 0><#list property.name?cap_first?split("(?=[A-Z])", "r") as token><#if count == 0>${token} <#else>${token?uncap_first} </#if><#assign count = count + 1></#list></label>
@@ -138,6 +145,3 @@
 </div>
 </div>
 
-<#if class.name == "Kartica">
-<button-directive></button-directive>
-</#if>

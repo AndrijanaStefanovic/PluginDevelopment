@@ -1,3 +1,4 @@
+//Generisano na osnovu sablona: jsapp.ftl
 var app = angular.module('${appName?uncap_first}App', [
 	'${appName?uncap_first}App.controllers',
     '${appName?uncap_first}App.services',

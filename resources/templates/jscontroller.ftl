@@ -1,3 +1,5 @@
+//Generisano na osnovu sablona: jscontroller.ftl
+//Element modela: ${class.name}
 angular.module('${appName?uncap_first}App.${class.name}Controller',[])
     .controller('${class.name}Controller', function ($scope, ${class.name}Service <#list zoomProperties as zoomProperty>, ${zoomProperty.name?cap_first}Service </#list>) {
     
